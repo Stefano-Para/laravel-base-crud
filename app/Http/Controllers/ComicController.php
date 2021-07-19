@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Comic;
 
 class ComicController extends Controller
 {
@@ -13,7 +14,13 @@ class ComicController extends Controller
      */
     public function index()
     {
-        //
+        $comics = Comic::paginate(5);
+        // è come se fosse
+        // $comics = [
+        //     'comics' => $comics
+        // ];
+
+        return view('comics.index', compact('comics'));
     }
 
     /**
@@ -43,9 +50,33 @@ class ComicController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show(Comic $comic)
     {
-        //
+        // 1) -- find e ABORT:
+        // $comic = Comic::find($id);
+        // if ($comic) {
+            // return view('comics/show', compact('comic'));
+        // }
+        // abort('404', "Ops, something went wrong");
+
+        // 2) -- find or Fail:
+        // $comic = Comic::findOrFail($id);
+        // return view('comics.show', compact('comic'));
+
+        //3) -- ricerca per slug:
+        // $comic = Comic::where('slug', $slug)->firstOrFail();
+
+        //3b) -- ricerca per slug con gestione eccezione::
+        // $comic = Comic::where('slug', $slug)->firstOrFail();
+        // if($comic) {
+        //     return view('comic.show', compact('comic'));
+        // }
+        // abort (404, 'Page not found');
+        
+        //4) -- return diretto con errore preimpostato da Laravel: 
+        // $comic = Comic::findOrFail($id);
+
+        return view('comics.show', compact('comic'));
     }
 
     /**
