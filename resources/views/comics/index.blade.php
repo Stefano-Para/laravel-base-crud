@@ -1,7 +1,6 @@
 @extends('layouts.main')
 
 @section('content')
-
     <h2>Elenco comics</h2>
 
     <table class="mt-4 table table-striped">
@@ -25,8 +24,16 @@
                     <td>
                         <a href="{{ route('comics.show', $item->id) }}" class="btn btn-success">SHOW</a>
                     </td>
-                    <td>EDIT</td>
-                    <td>DELETE</td>
+                    <td>
+                        <a href="{{ route('comics.edit', $item->id) }}" class="btn btn-primary">EDIT</a>
+                    </td>
+                    <td>DELETE 
+                        <form action="{{ route('comics.destroy', $item->id) }}" method="POST">
+                            @csrf
+                            @method('DELETE')
+                            <input type="text" class="btn btn-danger" value="DELETE">
+                        </form>
+                    </td>
                 </tr>
             @endforeach
         </tbody>

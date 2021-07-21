@@ -13,6 +13,9 @@
             <li class="nav-item {{ Route:: currentRouteName() == 'comics.index' ? 'active' : '' }}">
               <a class="nav-link" href="{{ route('comics.index') }}">Comics</a>
             </li>
+            <li class="nav-item {{ Route:: currentRouteName() == 'comics.create' ? 'active' : '' }}">
+              <a class="nav-link" href="{{ route('comics.create') }}">Aggiungi Fumetto</a>
+            </li>
           </ul>
         </div>
       </nav>
