@@ -130,7 +130,6 @@ class ComicController extends Controller
         $comic->update($data);
 
         return redirect()->route('comics.show', $comic->id);
-
     }
 
     /**
@@ -139,9 +138,13 @@ class ComicController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
-    {
-        $comic = Comic::findOrFail($id);
-        dd($comic);
+    public function destroy(Comic $comic)
+    {   
+        $comic->delete();
+
+        return redirect()
+            ->route('comics.index')
+            ->with('deleted', "Fumetto '" . 
+            $comic->title . " " . "' cancellato correttamente");
     }
 }

@@ -3,6 +3,12 @@
 @section('content')
     <h2>Elenco comics</h2>
 
+    @if (session('deleted'))
+        <div class="aler alert-success">
+            {{ (session('deleted')) }}
+        </div>
+    @endif
+
     <table class="mt-4 table table-striped">
         <thead>
             <tr>
@@ -27,11 +33,14 @@
                     <td>
                         <a href="{{ route('comics.edit', $item->id) }}" class="btn btn-primary">EDIT</a>
                     </td>
-                    <td>DELETE 
-                        <form action="{{ route('comics.destroy', $item->id) }}" method="POST">
+                    <td  >
+                        <form
+                            action="{{ route('comics.destroy', $item->id) }}"
+                            method="POST"
+                            onSubmit="return confirm('Sei sicuro di voler cancellare definitivamente {{ $item->title }} ')">
                             @csrf
                             @method('DELETE')
-                            <input type="text" class="btn btn-danger" value="DELETE">
+                            <input type="submit" class="btn btn-danger" value="DELETE">
                         </form>
                     </td>
                 </tr>
